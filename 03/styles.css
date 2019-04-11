@@ -1,0 +1,49 @@
+@import "reset.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto:400i,900,900i&subset=cyrillic');
+
+body {
+  font-family: Roboto, sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input {
+  width: 100vw;
+  margin-top: 35vh;
+  padding-bottom: 0.25em;
+
+  text-align: center;
+
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+
+  font-size: 7vw;
+  font-weight: 900;
+
+  caret-color: rgb(255, 0, 0);
+}
+
+input::placeholder {
+  color: #000;
+
+  font-style: italic;
+}
+
+ul {
+  display: flex;
+  flex-direction: column-reverse;
+
+  margin-top: 3vw;
+
+  text-align: center;
+  text-decoration: line-through;
+
+  color: rgba(0, 0, 0, 0.5);
+
+  font-size: 3vw;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.5;
+}

@@ -15,7 +15,7 @@ function filterItemsBy(filter) {
         .querySelectorAll('article')
         .forEach(function compareItemTypeWithFilter($item) {
           let itemType = $item.dataset.tagType
-          if (itemType === filter) {
+) {
             $item.style.display = 'block'
           } else {
             $item.style.display = 'none'
