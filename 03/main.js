@@ -1,4 +1,5 @@
 let form = document.querySelector('form')
+const WORK_TIME = 2000
 
 form.onsubmit = function handleFormSubmit(event) {
   // Предотвращает поведение события submit по умолчанию
@@ -11,21 +12,42 @@ form.onsubmit = function handleFormSubmit(event) {
   // чтобы потом получить значение инпута
   let input = form.querySelector('input')
 
+  // После нажатия Ввод блокируем инпут
+  input.disabled = true
+
+  // Затем находим прогресс див
+  let progress = document.querySelector('.progress')
+  // Меняем ему ширину
+  progress.style.width = '100vw'
+  // Добавляем время анимации
+  progress.style.transitionDuration = WORK_TIME + 'ms'
+
+  setTimeout(function () {
+    // Убираем анимацию после того, как время закончилось
+    progress.style.transitionDuration = ''
+    // И убираем ширину, чтобы потом ее снова сделать во весь экран и анимировать
+    progress.style.width = ''
+    // И разблокируем инпут
+    input.disabled = false
+    // И добавляем выполненную задачу в список
+    addListItem(input.value)
+    // И в память
+    let id = Date.now()
+    localStorage.setItem(id, input.value)
+    // Сбрасываем значение из инпута
+    input.value = ''
+  }, WORK_TIME)
+}
+
+function addListItem(liText) {
+  // Находим <ul></ul>
+  let ul = document.querySelector('ul')
   // Создаем новый элемент <li></li> в памяти компьютера
   let li = document.createElement('li')
   // Добавляем текст внутрь тега
-  // Получится <li>текст из input.value</li>
-  li.innerText = input.value
-
-  // Находим <ul></ul>
-  let ul = document.querySelector('ul')
+  li.innerText = liText
   // И добавляем к нему свежесозданный <li> с текстом
   ul.appendChild(li)
-
-  let id = Date.now()
-  localStorage.setItem(id, input.value)
-
-  input.value = ''
 }
 
 function loadHistory() {
@@ -40,13 +62,7 @@ function loadHistory() {
       let id = localStorage.key(i)
       // И по ключу находим значение
       let taskName = localStorage.getItem(id)
-      // Затем создаем новый элемент списка
-      let li = document.createElement('li')
-      let ul = document.querySelector('ul')
-
-      // Добавляем в новый элемент списка текст
-      li.innerText = taskName
-      ul.appendChild(li)
+      addListItem(taskName)
     }
   }
 }
